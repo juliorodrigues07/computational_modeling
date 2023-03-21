@@ -4,7 +4,7 @@
 
 Computational modeling practical exercises, ODEs solvers and methods implementations (Evaluative exercises from Introduction to Computational Modeling Course - DCOMP - UFSJ).
 
-# Requiremnts
+# Requirements
 
 - [pandas](https://pandas.pydata.org/) library:
 
