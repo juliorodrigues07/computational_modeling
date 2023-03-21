@@ -34,4 +34,4 @@ The instructions for running each script are as it follows.
      
 - Runge-Kutta's Method:
 
-      python3 chemical_kutta.py
+      python3 chemical_rk4.py
