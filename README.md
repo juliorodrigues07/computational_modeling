@@ -24,14 +24,16 @@ Computational modeling practical exercises, ODEs solvers and methods implementat
 
 # Execution
 
-The instructions for running each script are as it follows.
+You can alter the ODEs solver methods (_euler_ or _runge-kutta_) and several parameters (initial population, rates, timestep...) directly in the source code before running. The instructions for simulating each model are as it follows:
 
-## Chemical Reactions Model
+- Chemical Reactions Model:
 
-- Euler's Method:
-
-      python3 chemical_euler.py
+      python3 chemical_reactions.py
      
-- Runge-Kutta's Method:
+- Lotka-Volterra Model:
 
-      python3 chemical_rk4.py
+      python3 lotka_volterra.py
+      
+- Species Competition Model:
+
+      python3 species_competition.py
