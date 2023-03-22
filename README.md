@@ -6,6 +6,10 @@ Computational modeling practical exercises, ODEs solvers and methods implementat
 
 # Requirements
 
+- [Python3](https://python.org) and [pip](https://pip.pypa.io/en/stable/installation/) package manager:
+
+      sudo apt install python3 python3-pip build-essential python3-dev
+
 - [pandas](https://pandas.pydata.org/) library:
 
       pip install pandas
