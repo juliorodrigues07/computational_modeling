@@ -11,6 +11,14 @@ Computational modeling practical exercises, ODEs solvers and methods implementat
 
       sudo apt install python3 python3-pip build-essential python3-dev
 
+- [G++](https://gcc.gnu.org/onlinedocs/gcc-12.2.0/gcc/) compiler:
+
+      sudo apt install build-essential
+
+- [Cython](https://cython.readthedocs.io/en/latest/) compiler:
+
+      pip install Cython
+
 - [pandas](https://pandas.pydata.org/) library:
 
       pip install pandas
@@ -26,10 +34,6 @@ Computational modeling practical exercises, ODEs solvers and methods implementat
 - [Matplotlib](https://matplotlib.org/) library:
  
       pip install matplotlib
-      
-- [G++](https://gcc.gnu.org/onlinedocs/gcc-12.2.0/gcc/) compiler:
-
-      sudo apt install build-essential
        
 - To install all dependencies:
 
@@ -47,6 +51,8 @@ Computational modeling practical exercises, ODEs solvers and methods implementat
 
 You can alter the ODEs solver methods and several parameters (initial population, rates, timestep...) directly in the source code before running. The instructions for simulating each model are as it follows:
 
+## Basic Models
+
 - Chemical Reactions Model:
 
       python3 chemical_reactions.py
@@ -55,7 +61,7 @@ You can alter the ODEs solver methods and several parameters (initial population
 
       python3 lotka_volterra.py
       
-- Species Competition Model:
+- Species Competition Model (ODE and Cellular Automata):
 
       python3 species_competition.py
       
