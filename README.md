@@ -53,21 +53,21 @@ You can alter the ODEs solver methods and several parameters (initial population
 
 ## Basic Models
 
-- Chemical Reactions Model:
+- Chemical Reactions:
 
       python3 chemical_reactions.py
      
-- Lotka-Volterra Model:
+- Lotka-Volterra:
 
       python3 lotka_volterra.py
       
-- Species Competition Model (ODE and Cellular Automata):
+- Species Competition (ODE and Cellular Automata):
 
       python3 species_competition.py
       
 - Inhibiting Competition:
 
-      python3 inhibitng_competition.py
+      python3 inhibiting_competition.py
       
 ## SIRS Model
 
