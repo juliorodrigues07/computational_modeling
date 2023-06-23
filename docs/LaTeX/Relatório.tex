@@ -61,7 +61,7 @@
 	
 	\begin{center}
 		\vspace{\fill}
-			Maio\\
+			Junho\\
 		    2023
 	\end{center}
 \end{titlepage}
@@ -507,6 +507,154 @@ Outro detalhe interessante, é de que a curva da população de suscetíveis apr
 Por fim, a aplicação da vacina em instantes de tempo posteriores, provavelmente postergaria o processo de redução da população de suscetíveis e infectados, deslocando as curvas no eixo de tempo.
 
 \pagebreak
+
+\section*{Exercício 7}
+
+\subsection*{Regras Criadas}
+
+Neste exercício, foram implementadas apenas duas regras relativas à reprodução e movimentação que se aplicam as duas espécies \emph{N1} e \emph{N2} da mesma forma. Neste ponto, é importante citar que a avaliação das condições de reprodução sempre precedem a avaliação das condições de movimentação. Em outras palavras, podem existir casos em que após o processo de reprodução ocorrer, não exista forma de que elementos se movimentem em sua vizinhança pela ausência de posições vazias.
+
+\subsubsection*{Reprodução}
+
+A regra de reprodução criada possui quatro condições que devem ser satisfeitas ao mesmo tempo para que o processo ocorra:
+
+\begin{itemize}
+    \item A probabilidade gerada deve ser alta o suficiente (ultrapassar o limiar definido);
+    \item Deve haver pelo menos um indivíduo da mesma espécie do indivíduo analisado na iteração na vizinhança;
+    \item A quantidade de indivíduos da espécie do indivíduo analisado atualmente deve ser superior à quantidade de indivíduos da espécie rival na vizinhança (inibição);
+    \item Deve existir pelo menos uma posição não ocupada na vizinhança para que o novo indíviduo derivado da reprodução seja criado.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.45\textwidth]{Images/Exercise 7/grid.png}
+    \caption{Exemplo de vizinhança}
+    \label{fig:map1}
+\end{figure}
+
+Na Figura \ref{fig:map1}, podemos observar um exemplo que pode satisfazer todas as condições de reprodução simultaneamente. Dada que a probabilidade gerada é alta o suficiente, o indivíduo analisado atualmente (em verde, 1 - espécie \emph{N1}) possui pelo menos um elemento da mesma espécie como vizinho (em azul, vizinhança). Além disto, a quantidade de indivíduos da espécie \emph{N1} supera o número de indivíduos da espécie \emph{N2} na vizinhança (4 a 3), além de existir posições vazias para que o novo indivíduo derivado da reprodução da espécie \emph{N1} assuma seu lugar no domínio.
+
+\subsubsection*{Movimentação}
+
+A regra de movimentação criada possui apenas duas condições que devem ser satisfeitas ao mesmo tempo para que o processo ocorra:
+
+\begin{itemize}
+    \item A probabilidade gerada deve ser alta o suficiente (ultrapassar o limiar definido);
+    \item Deve existir pelo menos uma posição não ocupada na vizinhança para que o indíviduo analisado atualmente se mova.
+\end{itemize}
+
+Embora as condições sejam menos restritivas para que o processo de movimentação ocorra, as ações de movimentação sempre são avaliadas após a reprodução. Em outras palavras, em um caso hipotético que todas as condições de reprodução e movimentação sejam satisfeitas e exista somente uma posição vazia, apenas a reprodução ocorrerá, ocupando todas as posições da vizinhança e impedindo quaisquer movimentações. 
+
+\subsection*{Simulações}
+
+As primeiras observações que podemos realizar antes de executar qualquer simulação são de que, como não existem quaisquer tipos de mortalidade ou predação implementados no autômato, a tendência é de que as espécies sempre ocupem o domínio por completo (esgotando posições vazias) conforme as iterações ocorrem.
+
+O único cenário em que tal estado não deve ocorrer, é quando a reprodução das espécies é inibida por completo, apenas ocorrendo movimentações. Caso contrário, a espécie que obtiver melhores condições e maior probabilidade de reprodução irá se disseminar mais rapidamente sob o domínio.
+
+Outro aspecto importante se dá em relação a implementação das ações de movimentação. Existe alguma lógica falha ainda não identificada na atualização do domínio nos casos em que as condições de movimentação são satisfeitas, cujo funcionamento provoca alterações no número de posições vazias no domínio. Em outras palavras, existem movimentações que estão "exterminando" \hspace{0.1cm}elementos das espécies e disponibilizando mais posições vazias. Como é de se esperar, esta falha provoca comportamentos inesperados em casos cuja movimentação não é inibida.
+
+\subsubsection*{Reprodução e Movimentação Livres}
+
+Na Figura \ref{fig:map3}, podemos observar o comportamento das populações em condições que permitem a reprodução e movimentação de ambas as espécies. As probabilidades atribuídas nesta simulação foram as seguintes:
+
+\begin{itemize}
+    \item P(Reprodução de \emph{N1}) = 0,5;
+    \item P(Reprodução de \emph{N2}) = 0,5;
+    \item P(Movimentação de \emph{N1}) = 0,4;
+    \item P(Movimentação de \emph{N2}) = 0,8;
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.49\textwidth]{Images/Exercise 7/all/1.png}
+    \includegraphics[width=.49\textwidth]{Images/Exercise 7/all/2.png}
+    \includegraphics[width=.49\textwidth]{Images/Exercise 7/all/3.png}
+    \includegraphics[width=.49\textwidth]{Images/Exercise 7/all/4.png}
+    \label{fig:map2}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.49\textwidth]{Images/Exercise 7/all/5.png}
+    \includegraphics[width=.49\textwidth]{Images/Exercise 7/all/6.png}
+    \includegraphics[width=.49\textwidth]{Images/Exercise 7/all/7.png}
+    \includegraphics[width=.49\textwidth]{Images/Exercise 7/all/8.png}
+    \includegraphics[width=.49\textwidth]{Images/Exercise 7/all/9.png}
+    \includegraphics[width=.49\textwidth]{Images/Exercise 7/all/10.png}
+    \caption{Populações com reprodução e movimentação livres}
+    \label{fig:map3}
+\end{figure}
+
+\pagebreak
+
+Embora à primeira vista, o resultado aparenta estar conforme o esperado, com as populações se reproduzindo e disseminando-se sob o domínio, acredita-se que a lógica falha de movimentação teve grande influência no resultado. Indivíduos da espécie \emph{N1} deviam se mostrar predominantes no domínio já que, embora sua probabilidade de reprodução seja a mesma da espécie \emph{N2}, seu fator de movimentação é em média o dobro da mesma (chance de gerar um número maior que 0,4 é muito maior do que um número superior a 0,8).
+
+\subsubsection*{Movimentação Livre}
+
+Na Figura \ref{fig:map5}, podemos observar o comportamento das populações em condições que permitem a movimentação de ambas as espécies. As probabilidades atribuídas nesta simulação foram as seguintes:
+
+\begin{itemize}
+    \item P(Movimentação de \emph{N1}) = 0,5;
+    \item P(Movimentação de \emph{N2}) = 0,5;
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.48\textwidth]{Images/Exercise 7/move/1.png}
+    \includegraphics[width=.48\textwidth]{Images/Exercise 7/move/2.png}
+    \includegraphics[width=.48\textwidth]{Images/Exercise 7/move/3.png}
+    \includegraphics[width=.48\textwidth]{Images/Exercise 7/move/4.png}
+    \label{fig:map4}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.49\textwidth]{Images/Exercise 7/move/5.png}
+    \includegraphics[width=.49\textwidth]{Images/Exercise 7/move/6.png}
+    \includegraphics[width=.49\textwidth]{Images/Exercise 7/move/7.png}
+    \includegraphics[width=.49\textwidth]{Images/Exercise 7/move/8.png}
+    \includegraphics[width=.49\textwidth]{Images/Exercise 7/move/9.png}
+    \includegraphics[width=.49\textwidth]{Images/Exercise 7/move/10.png}
+    \caption{Comportamento de populações com movimentação livre}
+    \label{fig:map5}
+\end{figure}
+
+\pagebreak
+
+Nesta simulação, fica evidente a lógica falha na movimentação das espécies. Mesmo com a inexistência de quaisquer tipos de mortalidade e predação, e com a reprodução das espécies totalmente inibida, o comportamento dos indivíduos na movimentação é imprevisível. Comparando os extremos, observa-se a discrepância na quantidade de posições vazias que surgiram sem motivo aparente, novamente "exterminando" \hspace{0.1cm}vários elementos de ambas espécies.
+
+\subsubsection*{Reprodução Livre}
+
+Na Figura \ref{fig:map7}, podemos observar o comportamento das populações em condições que permitem a reprodução de ambas as espécies. As probabilidades atribuídas nesta simulação foram as seguintes:
+
+\begin{itemize}
+    \item P(Reprodução de \emph{N1}) = 0,2;
+    \item P(Reprodução de \emph{N2}) = 0,8;
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.49\textwidth]{Images/Exercise 7/rep/1.png}
+    \includegraphics[width=.49\textwidth]{Images/Exercise 7/rep/2.png}
+    \includegraphics[width=.49\textwidth]{Images/Exercise 7/rep/3.png}
+    \includegraphics[width=.49\textwidth]{Images/Exercise 7/rep/4.png}
+    \label{fig:map6}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.49\textwidth]{Images/Exercise 7/rep/5.png}
+    \includegraphics[width=.49\textwidth]{Images/Exercise 7/rep/6.png}
+    \includegraphics[width=.49\textwidth]{Images/Exercise 7/rep/7.png}
+    \includegraphics[width=.49\textwidth]{Images/Exercise 7/rep/8.png}
+    \includegraphics[width=.49\textwidth]{Images/Exercise 7/rep/9.png}
+    \caption{Comportamento de populações com reprodução livre}
+    \label{fig:map7}
+\end{figure}
+
+\pagebreak
+
+Por fim, conseguimos observar um comportamento aparentemente correto na distribuição espacial das populações. Com a movimentação de ambas espécies completamente inibida, a espécie cuja probabilidade propicia maior número de ocorrências de reprodução dissemina-se mais rapidamente sob o domínio, como acontece com a espécie \emph{N1} nesta simulação em específico.
 
 \section*{Referências}
 
